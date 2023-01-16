@@ -25,8 +25,6 @@ namespace Game_BattleShip
             engine.addShipFirstPlayer(new Battleship("8"));
             engine.addShipFirstPlayer(new Battleship("9"));
             engine.addShipFirstPlayer(new Carrier("10"));
-
-
         }
     }
 }
