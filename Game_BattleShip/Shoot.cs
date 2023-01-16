@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Game_BattleShip
 {
-    internal class Shoot
+    public class Shoot
     {
+        private Coordinate coord;
+        private bool isHit = false;
+
+        public Shoot(Coordinate coord, bool isHit)
+        {
+            this.coord = coord;
+            this.isHit = isHit;
+        }
+        public Coordinate Coord { get; }
+        public bool IsHit { get; }
     }
 }

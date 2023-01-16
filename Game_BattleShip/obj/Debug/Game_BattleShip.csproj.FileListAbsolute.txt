@@ -1,0 +1,8 @@
+C:\Users\allah\source\repos\Game_BattleShip\Game_BattleShip\obj\Debug\Game_BattleShip.csproj.AssemblyReference.cache
+C:\Users\allah\source\repos\Game_BattleShip\Game_BattleShip\obj\Debug\Game_BattleShip.csproj.SuggestedBindingRedirects.cache
+C:\Users\allah\source\repos\Game_BattleShip\Game_BattleShip\obj\Debug\Game_BattleShip.csproj.CoreCompileInputs.cache
+C:\Users\allah\source\repos\Game_BattleShip\Game_BattleShip\bin\Debug\Game_BattleShip.exe.config
+C:\Users\allah\source\repos\Game_BattleShip\Game_BattleShip\bin\Debug\Game_BattleShip.exe
+C:\Users\allah\source\repos\Game_BattleShip\Game_BattleShip\bin\Debug\Game_BattleShip.pdb
+C:\Users\allah\source\repos\Game_BattleShip\Game_BattleShip\obj\Debug\Game_BattleShip.exe
+C:\Users\allah\source\repos\Game_BattleShip\Game_BattleShip\obj\Debug\Game_BattleShip.pdb
