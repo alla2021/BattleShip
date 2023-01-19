@@ -1,5 +1,6 @@
-﻿
-namespace Game_BattleShip
+﻿using BaseCoord;
+
+namespace BaseShoot
 {
     public class Shoot
     {

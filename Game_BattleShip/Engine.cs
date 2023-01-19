@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Base;
+using BaseCoord;
+using BaseShoot;
+using TypeShip;
 
 namespace Game_BattleShip
 {
@@ -55,7 +56,42 @@ namespace Game_BattleShip
             this.print.printLeftField(this.baseShipsListFirstPlayer);
             this.print.printRightField(this.baseShootListFirstPlayer);
         }
+        private bool checkShipPosition(Coordinate firstCoord, int shipType, Direction direction, List<BaseShip> list)
+        {
+            if (shipType == 1) // алгоритм тільки для однопалубних  кораблів
+            {
+                foreach (BaseShip item in list)
+                {
+                    foreach (Coordinate coord in item.getCoordinates())
+                    {
+                        if (coord.getX == firstCoord.getX && coord.getY == firstCoord.getY)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
 
+            return true;
+        }
+
+        private void generateShip(string name, int type = 1)
+        {
+            BaseShip baseShip = null;
+            bool isEmpty = true;
+            do
+            {
+                Coordinate firstCoord = new Coordinate(this.random.Next(0, 10), this.random.Next(0, 10)); // генеруємо випадкову координату
+                isEmpty = checkShipPosition(firstCoord, type, Direction.North, baseShipsListFirstPlayer); // перевіряємо чи вільна вона
+                if (isEmpty) // якщо вільна
+                {
+                    baseShip = new Destroyer(name); // то створюємо корабель
+                    baseShip.addCoord(firstCoord);
+
+                    this.addShipFirstPlayer(baseShip); // і поміщаємо його в масив
+                }
+            } while (!isEmpty); // якщо координати зайнята ідемо на нову ітерацію
+        }
 
     }
 }

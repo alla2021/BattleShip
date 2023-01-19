@@ -43,13 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllShips.cs" />
     <Compile Include="BaseShip.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="PrintBoards.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="shipsType\BattleShip.cs" />
+    <Compile Include="shipsType\Carrier.cs" />
+    <Compile Include="shipsType\Cruiser.cs" />
+    <Compile Include="shipsType\Destroyer.cs" />
     <Compile Include="Shoot.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System;
+using Base;
+using BaseCoord;
+using BaseShoot;
 
 namespace Game_BattleShip
 {

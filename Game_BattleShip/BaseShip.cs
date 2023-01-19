@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System;
+using BaseCoord;
 
-namespace Game_BattleShip
+namespace Base
 {
     public abstract class BaseShip
     {

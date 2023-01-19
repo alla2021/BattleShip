@@ -1,4 +1,4 @@
-﻿namespace Game_BattleShip
+﻿namespace BaseCoord
 {
     public class Coordinate
     {
