@@ -10,10 +10,13 @@ namespace Base
         private string name;
         protected int lenght;
         protected string shipType;
+
+        DateTime createObjTime;
         public BaseShip(string Name)
         {
             this.Name = name;
             listCoords = new List<Coordinate>();
+            createObjTime = DateTime.Now.ToLocalTime();
         }
         public string Name
         {
