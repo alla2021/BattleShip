@@ -13,7 +13,6 @@ namespace Game_BattleShip
             obj.addCoord(new Coordinate(1, 2)).addCoord(new Coordinate(1, 3));
             Engine engine = new Engine();
             engine.printPlayersBoards();
-
             engine.addShipFirstPlayer(new Destroyer("1"));
             engine.addShipFirstPlayer(new Destroyer("2"));
             engine.addShipFirstPlayer(new Destroyer("3"));
