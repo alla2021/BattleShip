@@ -12,8 +12,12 @@ namespace Base
         protected string shipType;
 
         DateTime createObjTime;
-        public BaseShip(string Name)
+        public BaseShip(string Name, int Lenght)
         {
+            if (Lenght <= 0 || Lenght > 10)
+            {
+                throw new ArgumentException($"Ship length shuold be in the range 1 to 10.");
+            }
             this.Name = name;
             listCoords = new List<Coordinate>();
             createObjTime = DateTime.Now.ToLocalTime();
@@ -34,7 +38,7 @@ namespace Base
         {
             foreach (Coordinate coord in listCoords)
             {
-                Console.WriteLine($"X: {coord.getX} Y: {coord.getY}");
+                Console.WriteLine($"X: {coord.X} Y: {coord.Y}");
             }
         }
 
@@ -54,7 +58,7 @@ namespace Base
         {
             for (int i = 0; i < listCoords.Count; i++)
             {
-                if (shot.getX == listCoords[i].getX && shot.getY == listCoords[i].getY)
+                if (shot.X == listCoords[i].X && shot.Y == listCoords[i].Y)
                 {
                     return true;
                 }

@@ -1,23 +1,37 @@
-﻿namespace BaseCoord
+﻿using System;
+
+namespace BaseCoord
 {
     public class Coordinate
     {
         private int x;
         private int y;
+
+        private const int rows = 9;
+        private const int column = 9;
+
         public Coordinate(int x, int y)
         {
+            if (X < 0 || X >= rows || Y < 0 || Y >= column)
+            {
+                throw new ArgumentException($"X and Y  '({X}, {Y})' should be in the range 0 to 9");
+            }
             this.x = x;
             this.y = y;
         }
 
         public Coordinate() { }
-        public int getX
+
+        public int X
         {
-            get { return this.x; }
+            get => this.x; 
+            set => this.x = value; 
+
         }
-        public int getY
+        public int Y
         {
-            get { return this.y; }
+            get => this.y; 
+            set => this.y = value; 
         }
     }
 }

@@ -10,40 +10,43 @@ namespace Game_BattleShip
     {
         public void printLeftField(List<BaseShip> shipListPlayer)
         {
-            for (int i = 0; i < 11; i++)
             {
-                for (int j = 0; j < 11; j++)
+                for (int i = 0; i < 11; i++)
                 {
-                    if (j == 0 && i == 0)
+                    for (int j = 0; j < 11; j++)
                     {
-                        Console.Write("  ");
-                    }
-                    else if (i == 0 && j != 0)
-                    {
-                        Console.Write((j - 1) + "|");
-                    }
-
-                    if (i != 0 && j == 0)
-                    {
-                        Console.Write((i - 1) + "|");
-                    }
-
-                    foreach (BaseShip ship in shipListPlayer)
-                    {
-                        foreach (Coordinate coord in ship.getCoordinates())
+                        if (j == 0 && i == 0)
                         {
-                            if (coord.getX == i - 1 && coord.getY == j - 1)
+                            Console.Write("  ");
+                        }
+                        else if (i == 0 && j != 0)
+                        {
+                            Console.Write((j - 1) + "|");
+                        }
+
+                        if (i != 0 && j == 0)
+                        {
+                            Console.Write((i - 1) + "|");
+                        }
+
+                        foreach (BaseShip ship in shipListPlayer) 
+                        {                            
+                            foreach (Coordinate coord in ship.getCoordinates())
                             {
-                                Console.Write("S" + "|");
+                                if (coord.X == i - 1 && coord.Y == j - 1)
+                                {                                   
+                                    Console.Write("O" + " "); // малювання корабля
+                                } 
+
                             }
                         }
+
                     }
-
+                    Console.WriteLine();
                 }
-
-                Console.WriteLine();
             }
         }
+
         public void printRightField(List<Shoot> shootListPlayer)
         {
             for (int i = 0; i < 11; i++)
@@ -66,13 +69,13 @@ namespace Game_BattleShip
 
                     foreach (Shoot shoot in shootListPlayer)
                     {
-                        if ((shoot.Coord.getX == i - 1 && shoot.Coord.getY == j - 1) && shoot.IsHit == true)
+                        if ((shoot.Coord.X == i - 1 && shoot.Coord.Y == j - 1) && shoot.IsHit == true)
                         {
-                            Console.Write("*");
+                            Console.Write("X");
                         }
                         else
                         {
-                            Console.Write("o");
+                            Console.Write("~");
                         }
                     }
 
