@@ -37,7 +37,6 @@ namespace Game_BattleShip
                                 {                                   
                                     Console.Write("O" + " "); // малювання корабля
                                 } 
-
                             }
                         }
 

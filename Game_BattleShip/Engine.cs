@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using Base;
 using BaseCoord;
 using BaseShoot;
@@ -170,36 +169,27 @@ namespace Game_BattleShip
         {
         }
 
-        public void genereteaFleetOfShipsFirstPlayer() {
-            for (int i = 0; i < 4; i++)
+        private void shipCreator(int quanquantity, int lenght, List<string> list)
+        {
+            for (int i = 0; i < quanquantity; i++)
             {
-                this.generateShipFirstPlayer($"ship {i}", 1);
+                Console.Write(list[random.Next(list.Count)]+" --");
+                this.generateShipFirstPlayer(list[random.Next(list.Count)], lenght);
             }
-            for (int i = 0; i < 3; i++)
-            {
-                this.generateShipFirstPlayer($"ship {i}", 2);
-            }
-            for (int i = 0; i < 2; i++)
-            {
-                this.generateShipFirstPlayer($"ship {i}", 3);
-            }
+        } 
+
+        public void genereteaFleetOfShipsFirstPlayer(List<string> list) {
+            shipCreator(4, 1, list);
+            shipCreator(3, 2, list);
+            shipCreator(2, 3, list);
             this.generateShipFirstPlayer("ship", 4);
         }
 
-        public void genereteaFleetOfShipsSecondPlayer() {
-            for (int i = 0; i < 4; i++)
-            {
-                this.generateShipFirstPlayer($"ship {i}", 1);
-            }
-            for (int i = 0; i < 3; i++)
-            {
-                this.generateShipFirstPlayer($"ship {i}", 2);
-            }
-            for (int i = 0; i < 2; i++)
-            {
-                this.generateShipFirstPlayer($"ship {i}", 3);
-            }
-            this.generateShipFirstPlayer("ship", 4);
+
+
+        public void genereteaFleetOfShipsSecondPlayer(List<string> list) {
+            shipCreator(4, 1, list);
+            this.generateShipSecondPlayer("ship", 4);
         }
 
         public void printPlayersBoards()
