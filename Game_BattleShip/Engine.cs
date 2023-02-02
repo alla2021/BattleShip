@@ -85,14 +85,50 @@ namespace Game_BattleShip
 
         private void addShipSecondPlayer(Coordinate firstCoord, int lenght, Direction direction, BaseShip baseShip)
         {
-            for (int i = 0; i < lenght; i++)
-            {
-                firstCoord = this.createCoord(firstCoord, direction);
-                baseShip.addCoord(firstCoord);
-            }
-            this.baseShipsListSecondPlayer.Add(baseShip);
         }
+
         //--------------------------------------------------------------------------------------------------------------
+        public void generateShipFirstPlayer(string name, int lenght)
+        {
+            BaseShip baseShip = null;
+            bool isEmpty = true;
+            Direction randDirection = (Direction)random.Next(0, 4);
+            do
+            {
+                Coordinate firstCoord = new Coordinate(this.random.Next(0, 10), this.random.Next(0, 10));
+                isEmpty = checkShipPosition(firstCoord, lenght, randDirection, baseShipsListFirstPlayer);
+                if (isEmpty)
+                {
+                    switch (lenght)
+                    {
+                        case 1:
+                            baseShip = new Destroyer(name, lenght);//створюємо корабель
+                            this.addShipFirstPlayer(firstCoord, lenght, randDirection, baseShip);// і поміщаємо його в масив
+                            break;
+                        case 2:
+                            baseShip = new Cruiser(name, lenght);
+                            this.addShipFirstPlayer(firstCoord, lenght, randDirection, baseShip);
+                            break;
+                        case 3:
+                            baseShip = new Battleship(name, lenght);
+                            this.addShipFirstPlayer(firstCoord, lenght, randDirection, baseShip);
+                            break;
+                        case 4:
+                            baseShip = new Carrier(name, lenght);
+                            this.addShipFirstPlayer(firstCoord, lenght, randDirection, baseShip);
+                            break;
+                        default: break;
+                    }
+                }
+            }
+            while (!isEmpty); // якщо координати зайнята ідемо на нову ітерацію 
+        }
+
+        public void generateShipSecondPlayer(string name, int lenght = 1)
+        {
+        }
+
+        //------------------------------------------------------------------------------------------------------
 
         private bool checkShipPosition(Coordinate firstCoord, int lenght, Direction direction, List<BaseShip> list)
         {
@@ -129,69 +165,40 @@ namespace Game_BattleShip
             return true;
         }
 
-        public void generateShipFirstPlayer(string name, int lenght)
-        {
-            BaseShip baseShip = null;
-            bool isEmpty = true;
-            Direction randDirection = (Direction)random.Next(0, 4);
-            do
-            {
-                Coordinate firstCoord = new Coordinate(this.random.Next(0, 10), this.random.Next(0, 10));
-                isEmpty = checkShipPosition(firstCoord, lenght, randDirection, baseShipsListFirstPlayer);
-                if (isEmpty)
-                {
-                        switch (lenght)
-                        {
-                            case 1:
-                                baseShip = new Destroyer(name, lenght);//створюємо корабель
-                                this.addShipFirstPlayer(firstCoord, lenght, randDirection, baseShip);// і поміщаємо його в масив
-                                break;    
-                            case 2:                              
-                                baseShip = new Cruiser(name, lenght);
-                                this.addShipFirstPlayer(firstCoord, lenght, randDirection, baseShip);
-                                break;
-                            case 3:    
-                                baseShip = new Battleship(name, lenght);
-                                this.addShipFirstPlayer(firstCoord, lenght, randDirection, baseShip);
-                                break;
-                            case 4:
-                                baseShip = new Carrier(name, lenght);
-                                this.addShipFirstPlayer(firstCoord, lenght, randDirection, baseShip);
-                                break;
-                            default: break;
-                        }
-                }
-            }
-            while (!isEmpty); // якщо координати зайнята ідемо на нову ітерацію 
-        }
 
-        public void generateShipSecondPlayer(string name, int lenght = 1)
-        {
-        }
 
-        private void shipCreator(int quanquantity, int lenght, List<string> list)
+
+        // -----створюємо всі кораблі
+        private void shipCreatorFirst(int quanquantity, int lenght, List<string> list)
         {
             for (int i = 0; i < quanquantity; i++)
             {
-                Console.Write(list[random.Next(list.Count)]+" --");
                 this.generateShipFirstPlayer(list[random.Next(list.Count)], lenght);
             }
-        } 
+        }
+        private void shipCreatorSecond(int quanquantity, int lenght, List<string> list)
+        {
+            for (int i = 0; i < quanquantity; i++)
+            {
+                this.generateShipSecondPlayer(list[random.Next(list.Count)], lenght);
+            }
+        }
 
         public void genereteaFleetOfShipsFirstPlayer(List<string> list) {
-            shipCreator(4, 1, list);
-            shipCreator(3, 2, list);
-            shipCreator(2, 3, list);
-            this.generateShipFirstPlayer("ship", 4);
+            shipCreatorSecond(4, 1, list);
+            shipCreatorSecond(3, 2, list);
+            shipCreatorSecond(2, 3, list);
+            shipCreatorSecond(1, 4, list);
         }
-
-
 
         public void genereteaFleetOfShipsSecondPlayer(List<string> list) {
-            shipCreator(4, 1, list);
-            this.generateShipSecondPlayer("ship", 4);
+            shipCreatorFirst(4, 1, list);
+            shipCreatorFirst(3, 2, list);
+            shipCreatorFirst(2, 3, list);
+            shipCreatorFirst(1, 4, list);
         }
 
+        // --виводимо короблі в консоль
         public void printPlayersBoards()
         {
             this.print.printLeftField(this.baseShipsListFirstPlayer);

@@ -7,8 +7,12 @@ namespace TypeShip
     {
         public Cruiser(string Name, int lenght) : base(Name, lenght)
         {
-            ShipType = "Cruiser";
+            shipType = "Cruiser";
             Lenght = 2;
+        }
+        public override void showType()
+        {
+            Console.WriteLine(shipType);
         }
     }
 }

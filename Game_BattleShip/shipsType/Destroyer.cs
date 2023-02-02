@@ -10,5 +10,9 @@ namespace TypeShip
             shipType = "Destroyer";
             Lenght = 1;
         }
+        public override void showType()
+        {
+            Console.WriteLine(shipType);
+        }
     }
 }

@@ -34,9 +34,14 @@ namespace Game_BattleShip
                             foreach (Coordinate coord in ship.getCoordinates())
                             {
                                 if (coord.X == i - 1 && coord.Y == j - 1)
-                                {                                   
+                                {     
                                     Console.Write("O" + " "); // малювання корабля
-                                } 
+                                }
+                                else if (coord.X < i - 1 && coord.Y < j - 1)
+                                {
+                                    Console.Write(" ");
+                                }
+
                             }
                         }
 

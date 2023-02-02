@@ -16,7 +16,9 @@ namespace Game_BattleShip
             
             List<string> list = new List<string>()
             {
-            "Fiona", "Arbroath", "Auricula", "Wren", "Ganges", "Vanity", "Latona", "Consort", "Gypsy","The Marianne",  "Sevenoaks", "Exmouth", "Triad", "Tigris", "Crofton", "The Sprightly", "Port Arthur", "Clorinde", "The Fastnet", "The Magdalen"
+            "Fiona", "Arbroath", "Auricula", "Wren", "Ganges", "Vanity", "Latona", "Consort", "Gypsy","The Marianne",  
+                "Sevenoaks", "Exmouth", "Triad", "Tigris", "Crofton", "The Sprightly", "Port Arthur", "Clorinde", "The Fastnet", 
+                "The Magdalen",
             };
 
             engine.genereteaFleetOfShipsFirstPlayer(list);     

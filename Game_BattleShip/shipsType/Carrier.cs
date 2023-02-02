@@ -1,4 +1,5 @@
 ﻿using Base;
+using System;
 
 namespace TypeShip
 {
@@ -6,8 +7,12 @@ namespace TypeShip
     {
         public Carrier(string Name, int lenght) : base(Name, lenght)
         {
-            ShipType = "Carrier";
+            shipType = "Carrier";
             Lenght = 4;
+        }
+        public override void showType()
+        {
+            Console.WriteLine(shipType);
         }
     }
 }
