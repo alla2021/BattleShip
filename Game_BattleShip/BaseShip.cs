@@ -14,9 +14,9 @@ namespace Base
         DateTime createObjTime;
         public BaseShip(string Name, int lenght)
         {
-            if (lenght <= 0 || lenght > 10)
+            if (lenght <= 0 || lenght > 5)
             {
-                throw new ArgumentException($"Ship length shuold be in the range 1 to 10.");
+                throw new ArgumentException($"Ship length shuold be in the range 1 to 4.");
             }
             this.Name = name;
             listCoords = new List<Coordinate>();
@@ -53,7 +53,6 @@ namespace Base
         {
             return this.listCoords;
         }
-
 
         public bool isHit(Coordinate shot)
         {

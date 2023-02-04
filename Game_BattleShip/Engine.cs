@@ -5,7 +5,6 @@ using BaseCoord;
 using BaseShoot;
 using TypeShip;
 
-
 namespace Game_BattleShip
 {
     enum Direction
@@ -34,7 +33,7 @@ namespace Game_BattleShip
             this.baseShootListSecondPlayer = new List<Shoot>();
             print = new PrintBoards();
         }
-        // постріли
+        // постріли------------------------------------
         public void addShootFirstPlayer(Shoot shoot)
         {
             this.baseShootListFirstPlayer.Add(shoot);
@@ -44,47 +43,124 @@ namespace Game_BattleShip
         {
             this.baseShootListSecondPlayer.Add(shoot);
         }
-
-        private Coordinate createCoord(Coordinate coord, Direction direction)
+        //------------------------------------------------
+        private Coordinate createCoord(Direction direction, int x, int y)
         {
             switch (direction)
             {
                 case Direction.North:
-                    coord = new Coordinate(coord.X, coord.Y++);
+                    {
+                        ++y; 
+                    }
                     break;
                 case Direction.East:
-                    coord = new Coordinate(coord.X++, coord.Y);
+                    {
+                        ++x; 
+                    }
                     break;
                 case Direction.South:
-                    coord = new Coordinate(coord.X, coord.Y--);
+                    { 
+                        --y; 
+                    }
                     break;
                 case Direction.West:
-                    coord = new Coordinate(coord.X--, coord.Y);
+                    { 
+                        --x; 
+                    }
                     break;
             }
-            return coord;
+            return new Coordinate(x,y);
         }
         //--------------------------------------------------------------------------------------------------------
 
-        private void addShipFirstPlayer(Coordinate coord, int lenght, Direction randDirection, BaseShip baseShip)
+        private void addShipFirstPlayer(Coordinate firstCoord, int lenght, Direction randDirection, BaseShip baseShip)
         {
             if (lenght == 1)
             {
-                baseShip.addCoord(coord);
+                baseShip.addCoord(firstCoord);
             } else
-            {
+            { 
                 for (int i = 0; i < lenght; i++)
                 {
-                    coord = this.createCoord(coord, randDirection); 
-                    baseShip.addCoord(coord);             
+                   
                 }    
             }
-            baseShip.printCoord();
+            //baseShip.printCoord();
             this.baseShipsListFirstPlayer.Add(baseShip);
         }
 
         private void addShipSecondPlayer(Coordinate firstCoord, int lenght, Direction direction, BaseShip baseShip)
         {
+        }
+
+        private List<Coordinate> generateCoordShip(Coordinate firstCoord, int lenght, Direction randDirection, List<BaseShip> baseShip)
+        {
+            List<Coordinate> tmpList = new List<Coordinate>();
+            Coordinate tmp = firstCoord;
+            tmpList.Add(tmp);
+
+            for (int i = 0; i < lenght - 1; i++)
+            {
+                tmp = this.createCoord(randDirection, tmp.X, tmp.Y);
+                tmpList.Add(tmp);
+            }
+
+            return tmpList;
+        }
+
+
+        public BaseShip addCoord(Coordinate coord)
+        {
+            this.listCoords.Add(coord);
+            return this;
+        }
+
+        public BaseShip addCoords(List<Coordinate> list)
+        {
+            this.listCoords.AddRange(list);
+            return this;
+        }
+
+        //------------------------------------------------------------------------------------------------------
+
+        private bool checkShipPosition(Coordinate firstCoord, int lenght, Direction direction, List<BaseShip> list)
+        {
+            if (lenght == 1) // алгоритм тільки для однопалубних  кораблів
+            {
+                foreach (BaseShip item in list)
+                {
+                    foreach (Coordinate coord in item.getCoordinates())
+                    {
+                        if (coord.X == firstCoord.X && coord.Y == firstCoord.Y)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("-----------");
+
+                for (int i = 0; i < lenght; i++)
+                {
+                    foreach(Coordinate tmpCoord in this.generateCoordShip(firstCoord, lenght, direction, list))
+                    {
+                        foreach (BaseShip item in list)
+                        {
+                            foreach (Coordinate coord in item.getCoordinates())
+                            {
+                                if (coord.X == firstCoord.X && coord.Y == firstCoord.Y)
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+ 
+                }
+            }
+            return true;
         }
 
         //--------------------------------------------------------------------------------------------------------------
@@ -126,43 +202,6 @@ namespace Game_BattleShip
 
         public void generateShipSecondPlayer(string name, int lenght = 1)
         {
-        }
-
-        //------------------------------------------------------------------------------------------------------
-
-        private bool checkShipPosition(Coordinate firstCoord, int lenght, Direction direction, List<BaseShip> list)
-        {
-            if (lenght == 1) // алгоритм тільки для однопалубних  кораблів
-            {
-                foreach (BaseShip item in list)
-                {
-                    foreach (Coordinate coord in item.getCoordinates())
-                    {
-                        if (coord.X == firstCoord.X && coord.Y == firstCoord.Y)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("-----------");
-                for (int i = 0; i < lenght; i++)
-                {
-                    foreach (BaseShip item in list)
-                    {
-                        foreach (Coordinate coord in item.getCoordinates())
-                        {
-                            if (coord.X == firstCoord.X && coord.Y == firstCoord.Y)
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                }
-            }
-            return true;
         }
 
 
