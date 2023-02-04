@@ -24,24 +24,29 @@ namespace Game_BattleShip
                             Console.Write((j - 1) + "|");
                         }
 
-                        if (i != 0 && j == 0)
+                        else if (i != 0 && j == 0)
                         {
                             Console.Write((i - 1) + "|");
                         }
-
-                        foreach (BaseShip ship in shipListPlayer) 
-                        {                            
-                            foreach (Coordinate coord in ship.getCoordinates())
+                        else
+                        {
+                            bool flag = true;
+                            foreach (BaseShip ship in shipListPlayer)
                             {
-                                if (coord.X == i - 1 && coord.Y == j - 1)
-                                {     
-                                    Console.Write("O" + " "); // малювання корабля
-                                }
-                                else if (coord.X < i - 1 && coord.Y < j - 1)
+                                foreach (Coordinate coord in ship.getCoordinates())
                                 {
-                                    Console.Write(" ");
-                                }
+                                    if (coord.X == i - 1 && coord.Y == j - 1)
+                                    {
+                                        Console.Write("O" + " "); // малювання корабля
+                                        flag = false;
+                                        break;
+                                    }
 
+                                }
+                            }
+                            if(flag)
+                            {
+                                Console.Write("  ");
                             }
                         }
 

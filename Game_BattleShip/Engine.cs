@@ -166,8 +166,6 @@ namespace Game_BattleShip
         }
 
 
-
-
         // -----створюємо всі кораблі
         private void shipCreatorFirst(int quanquantity, int lenght, List<string> list)
         {
@@ -185,17 +183,17 @@ namespace Game_BattleShip
         }
 
         public void genereteaFleetOfShipsFirstPlayer(List<string> list) {
-            shipCreatorSecond(4, 1, list);
-            shipCreatorSecond(3, 2, list);
-            shipCreatorSecond(2, 3, list);
-            shipCreatorSecond(1, 4, list);
-        }
-
-        public void genereteaFleetOfShipsSecondPlayer(List<string> list) {
             shipCreatorFirst(4, 1, list);
             shipCreatorFirst(3, 2, list);
             shipCreatorFirst(2, 3, list);
             shipCreatorFirst(1, 4, list);
+        }
+
+        public void genereteaFleetOfShipsSecondPlayer(List<string> list) {
+            shipCreatorSecond(4, 1, list);
+            shipCreatorSecond(3, 2, list);
+            shipCreatorSecond(2, 3, list);
+            shipCreatorSecond(1, 4, list);
         }
 
         // --виводимо короблі в консоль
