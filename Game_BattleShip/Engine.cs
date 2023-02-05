@@ -72,7 +72,7 @@ namespace Game_BattleShip
             return new Coordinate(x,y);
         }
         //--------------------------------------------------------------------------------------------------------
-        private List<Coordinate> generateCoordShip(Coordinate firstCoord, int lenght, Direction randDirection, List<BaseShip> baseShip)
+        private List<Coordinate> generateCoordShip(Coordinate firstCoord, int lenght, Direction randDirection)
         {
             List<Coordinate> tmpList = new List<Coordinate>();
             Coordinate tmp = firstCoord;
@@ -85,24 +85,12 @@ namespace Game_BattleShip
             }
             return tmpList;
         }
-
-        /*public BaseShip addCoord(Coordinate coord)
-        {
-            this.listCoord.Add(coord);
-            return this;
-        }*/
-
-        /*public BaseShip addCoords(List<Coordinate> list)
-        {
-            this.listCoord.AddRange(list);
-            return this;
-        }*/
-
+        //--------------------------------------------------------------------------------------------------------
         private void addShipPlayer(Coordinate firstCoord, int lenght, Direction randDirection, BaseShip baseShip)
         {
             if (lenght == 1)
             {
-                baseShip.addCoords(firstCoord);
+                baseShip.addCoord(firstCoord);
             }
             else
             {
@@ -111,8 +99,6 @@ namespace Game_BattleShip
             //baseShip.printCoord();
             this.baseShipsListFirstPlayer.Add(baseShip);
         }
-
-   
 
         //------------------------------------------------------------------------------------------------------
 
@@ -141,7 +127,7 @@ namespace Game_BattleShip
                     {
                         firstCoord = this.createCoord(direction, firstCoord.X, firstCoord.Y);
                     }
-                    foreach(Coordinate tmpCoord in this.generateCoordShip(firstCoord, lenght, direction, list))
+                    foreach(Coordinate tmpCoord in this.generateCoordShip(firstCoord, lenght, direction))
                     {
                         foreach (BaseShip item in list)
                         {
@@ -159,7 +145,7 @@ namespace Game_BattleShip
             }
             return true;
         }
-        public BaseShip createCapitalShip(Coordinate firstCoord, int lenght, Direction ranDirection, string name)
+        private BaseShip createCapitalShip(Coordinate firstCoord, int lenght, Direction ranDirection, string name)
         {
             BaseShip obj = null;
             if (lenght == 2)
@@ -177,11 +163,11 @@ namespace Game_BattleShip
             }
 
             obj.Name = name;
-            obj.addCoords(generateCoordShip(firstCoord, lenght, ranDirection));
+            obj.addCoords(generateCoordShip(firstCoord,lenght, ranDirection));
             return obj;
         }
         //--------------------------------------------------------------------------------------------------------------if
-        private List<BaseShip> generateShiptPlayer(string name, int lenght, List<BaseShip> list)
+        private List<BaseShip> generateShipsPlayer(string name, int lenght, List<BaseShip> list)
         {
             BaseShip baseShip = null;
             bool isEmpty = true;

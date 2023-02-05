@@ -43,9 +43,15 @@ namespace Base
             }
         }
 
-        public BaseShip addCoords(Coordinate coord)
+        public BaseShip addCoord(Coordinate coord)
         {
             this.listCoord.Add(coord);
+            return this;
+        }
+
+        public BaseShip addCoords(List<Coordinate> list)
+        {
+            this.listCoord.AddRange(list);
             return this;
         }
 
