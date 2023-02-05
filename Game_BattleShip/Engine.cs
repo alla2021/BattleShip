@@ -72,27 +72,6 @@ namespace Game_BattleShip
             return new Coordinate(x,y);
         }
         //--------------------------------------------------------------------------------------------------------
-
-        private void addShipFirstPlayer(Coordinate firstCoord, int lenght, Direction randDirection, BaseShip baseShip)
-        {
-            if (lenght == 1)
-            {
-                baseShip.addCoord(firstCoord);
-            } else
-            { 
-                for (int i = 0; i < lenght; i++)
-                {
-                   
-                }    
-            }
-            //baseShip.printCoord();
-            this.baseShipsListFirstPlayer.Add(baseShip);
-        }
-
-        private void addShipSecondPlayer(Coordinate firstCoord, int lenght, Direction direction, BaseShip baseShip)
-        {
-        }
-
         private List<Coordinate> generateCoordShip(Coordinate firstCoord, int lenght, Direction randDirection, List<BaseShip> baseShip)
         {
             List<Coordinate> tmpList = new List<Coordinate>();
@@ -104,22 +83,36 @@ namespace Game_BattleShip
                 tmp = this.createCoord(randDirection, tmp.X, tmp.Y);
                 tmpList.Add(tmp);
             }
-
             return tmpList;
         }
 
-
-        public BaseShip addCoord(Coordinate coord)
+        /*public BaseShip addCoord(Coordinate coord)
         {
-            this.listCoords.Add(coord);
+            this.listCoord.Add(coord);
             return this;
+        }*/
+
+        /*public BaseShip addCoords(List<Coordinate> list)
+        {
+            this.listCoord.AddRange(list);
+            return this;
+        }*/
+
+        private void addShipPlayer(Coordinate firstCoord, int lenght, Direction randDirection, BaseShip baseShip)
+        {
+            if (lenght == 1)
+            {
+                baseShip.addCoords(firstCoord);
+            }
+            else
+            {
+
+            }
+            //baseShip.printCoord();
+            this.baseShipsListFirstPlayer.Add(baseShip);
         }
 
-        public BaseShip addCoords(List<Coordinate> list)
-        {
-            this.listCoords.AddRange(list);
-            return this;
-        }
+   
 
         //------------------------------------------------------------------------------------------------------
 
@@ -144,13 +137,17 @@ namespace Game_BattleShip
 
                 for (int i = 0; i < lenght; i++)
                 {
+                    if (i != 0)
+                    {
+                        firstCoord = this.createCoord(direction, firstCoord.X, firstCoord.Y);
+                    }
                     foreach(Coordinate tmpCoord in this.generateCoordShip(firstCoord, lenght, direction, list))
                     {
                         foreach (BaseShip item in list)
                         {
                             foreach (Coordinate coord in item.getCoordinates())
                             {
-                                if (coord.X == firstCoord.X && coord.Y == firstCoord.Y)
+                                if (coord.X == tmpCoord.X && coord.Y == tmpCoord.Y)
                                 {
                                     return false;
                                 }
@@ -162,77 +159,63 @@ namespace Game_BattleShip
             }
             return true;
         }
+        public BaseShip createCapitalShip(Coordinate firstCoord, int lenght, Direction ranDirection, string name)
+        {
+            BaseShip obj = null;
+            if (lenght == 2)
+            {
+                obj = new Cruiser(name, lenght);//створюємо корабель
+            } else if (lenght == 3)
+            {
+                obj = new Battleship(name, lenght);
+            }
+            else if (lenght == 4)
+            {
+                obj = new Carrier(name, lenght);
+            } else {
+                Console.WriteLine("err");
+            }
 
-        //--------------------------------------------------------------------------------------------------------------
-        public void generateShipFirstPlayer(string name, int lenght)
+            obj.Name = name;
+            obj.addCoords(generateCoordShip(firstCoord, lenght, ranDirection));
+            return obj;
+        }
+        //--------------------------------------------------------------------------------------------------------------if
+        private List<BaseShip> generateShiptPlayer(string name, int lenght, List<BaseShip> list)
         {
             BaseShip baseShip = null;
             bool isEmpty = true;
-            Direction randDirection = (Direction)random.Next(0, 4);
+            Direction direction = (Direction)random.Next(0, 4);
             do
             {
                 Coordinate firstCoord = new Coordinate(this.random.Next(0, 10), this.random.Next(0, 10));
-                isEmpty = checkShipPosition(firstCoord, lenght, randDirection, baseShipsListFirstPlayer);
+                isEmpty = checkShipPosition(firstCoord, lenght, direction, list);
                 if (isEmpty)
                 {
-                    switch (lenght)
-                    {
-                        case 1:
-                            baseShip = new Destroyer(name, lenght);//створюємо корабель
-                            this.addShipFirstPlayer(firstCoord, lenght, randDirection, baseShip);// і поміщаємо його в масив
-                            break;
-                        case 2:
-                            baseShip = new Cruiser(name, lenght);
-                            this.addShipFirstPlayer(firstCoord, lenght, randDirection, baseShip);
-                            break;
-                        case 3:
-                            baseShip = new Battleship(name, lenght);
-                            this.addShipFirstPlayer(firstCoord, lenght, randDirection, baseShip);
-                            break;
-                        case 4:
-                            baseShip = new Carrier(name, lenght);
-                            this.addShipFirstPlayer(firstCoord, lenght, randDirection, baseShip);
-                            break;
-                        default: break;
-                    }
+                    list.Add(createCapitalShip(firstCoord, lenght, direction, name)); 
                 }
             }
             while (!isEmpty); // якщо координати зайнята ідемо на нову ітерацію 
+            return list;
         }
-
-        public void generateShipSecondPlayer(string name, int lenght = 1)
-        {
-        }
-
 
         // -----створюємо всі кораблі
-        private void shipCreatorFirst(int quanquantity, int lenght, List<string> list)
+        private void shipCreator(int quanquantity, int lenght, List<string> list)
         {
             for (int i = 0; i < quanquantity; i++)
             {
-                this.generateShipFirstPlayer(list[random.Next(list.Count)], lenght);
-            }
-        }
-        private void shipCreatorSecond(int quanquantity, int lenght, List<string> list)
-        {
-            for (int i = 0; i < quanquantity; i++)
-            {
-                this.generateShipSecondPlayer(list[random.Next(list.Count)], lenght);
+              //  this.generateShipFirstPlayer(list[random.Next(list.Count)], lenght);
             }
         }
 
+
         public void genereteaFleetOfShipsFirstPlayer(List<string> list) {
-            shipCreatorFirst(4, 1, list);
-            shipCreatorFirst(3, 2, list);
-            shipCreatorFirst(2, 3, list);
-            shipCreatorFirst(1, 4, list);
+        
+    
         }
 
         public void genereteaFleetOfShipsSecondPlayer(List<string> list) {
-            shipCreatorSecond(4, 1, list);
-            shipCreatorSecond(3, 2, list);
-            shipCreatorSecond(2, 3, list);
-            shipCreatorSecond(1, 4, list);
+
         }
 
         // --виводимо короблі в консоль

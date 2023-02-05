@@ -6,7 +6,7 @@ namespace Base
 {
     public abstract class BaseShip
     {
-        List<Coordinate> listCoords;
+        List<Coordinate> listCoord;
         private string name;
         protected int lenght;
         protected string shipType;
@@ -19,7 +19,7 @@ namespace Base
                 throw new ArgumentException($"Ship length shuold be in the range 1 to 4.");
             }
             this.Name = name;
-            listCoords = new List<Coordinate>();
+            listCoord= new List<Coordinate>();
             createObjTime = DateTime.Now.ToLocalTime();
         }
         abstract public void showType();
@@ -37,28 +37,28 @@ namespace Base
 
         public void printCoord()
         {
-            foreach (Coordinate coord in listCoords)
+            foreach (Coordinate coord in listCoord)
             {
                 Console.WriteLine($"X: {coord.X} Y: {coord.Y}");
             }
         }
 
-        public BaseShip addCoord(Coordinate coord)
+        public BaseShip addCoords(Coordinate coord)
         {
-            this.listCoords.Add(coord);
+            this.listCoord.Add(coord);
             return this;
         }
 
         public List<Coordinate> getCoordinates()
         {
-            return this.listCoords;
+            return this.listCoord;
         }
 
         public bool isHit(Coordinate shot)
         {
-            for (int i = 0; i < listCoords.Count; i++)
+            for (int i = 0; i < listCoord.Count; i++)
             {
-                if (shot.X == listCoords[i].X && shot.Y == listCoords[i].Y)
+                if (shot.X == listCoord[i].X && shot.Y == listCoord[i].Y)
                 {
                     return true;
                 }
