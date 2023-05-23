@@ -15,6 +15,14 @@ namespace Game_BattleShip
         West
     }
 
+    public enum ShipType
+    {
+        Destroyer,
+        Cruiser,
+        Carrier,
+        Battleship
+    }
+
     public class Engine
     {
         private Random random;
@@ -167,42 +175,101 @@ namespace Game_BattleShip
             return obj;
         }
         //--------------------------------------------------------------------------------------------------------------if
-        private List<BaseShip> generateShipsPlayer(string name, int lenght, List<BaseShip> list)
+        private List<BaseShip> generateShipsPlayer(string name, int length, List<BaseShip> list)
         {
             BaseShip baseShip = null;
             bool isEmpty = true;
             Direction direction = (Direction)random.Next(0, 4);
+            int maxLength = Math.Min(length, 4); // limit the length of the ship to a maximum of 4
             do
             {
-                Coordinate firstCoord = new Coordinate(this.random.Next(0, 10), this.random.Next(0, 10));
-                isEmpty = checkShipPosition(firstCoord, lenght, direction, list);
+                Coordinate firstCoord = new Coordinate(random.Next(0, 10), random.Next(0, 10));
+                isEmpty = checkShipPosition(firstCoord, maxLength, direction, list);
+
                 if (isEmpty)
                 {
-                    list.Add(createCapitalShip(firstCoord, lenght, direction, name)); 
+                    switch (maxLength)
+                    {
+                        case 1:
+                            baseShip = createCapitalShip(firstCoord, maxLength, direction, name);
+                            break;
+                        case 2:
+                            baseShip = new Cruiser(name, maxLength);
+                            baseShip.addCoords(generateCoordShip(firstCoord, maxLength, direction));
+                            break;
+                        case 3:
+                            baseShip = new Battleship(name, maxLength);
+                            baseShip.addCoords(generateCoordShip(firstCoord, maxLength, direction));
+                            break;
+                        case 4:
+                            baseShip = new Carrier(name, maxLength);
+                            baseShip.addCoords(generateCoordShip(firstCoord, maxLength, direction));
+                            break;
+                    }
+
+                    list.Add(baseShip);
+                    Console.WriteLine("Created ship:");
+                        foreach (BaseShip coord in list)
+                        {
+                        coord.printCoord();
+                        }
                 }
-            }
-            while (!isEmpty); // якщо координати зайнята ідемо на нову ітерацію 
+            } while (!isEmpty);
+
             return list;
         }
 
+
         // -----створюємо всі кораблі
-        private void shipCreator(int quanquantity, int lenght, List<string> list)
+        // private void shipCreator(int quantity, int length, List<BaseShip> list)
+        // {
+        //    for (int i = 0; i < quantity; i++)
+        //    {
+        //        this.generateShipsPlayer("name", length, list);
+        //    }
+        //  }
+
+        public void genereteaFleetOfShipsFirstPlayer(List<string> list)
         {
-            for (int i = 0; i < quanquantity; i++)
+            List<BaseShip> firstPlayerFleet = new List<BaseShip>();
+
+            int destroyerCount = 4;
+            int cruiserCount = 3;
+            int carrierCount = 2;
+            int battleshipCount = 1;
+
+            while (destroyerCount > 0)
             {
-              //  this.generateShipFirstPlayer(list[random.Next(list.Count)], lenght);
+                firstPlayerFleet = generateShipsPlayer("Destroyer", 1, firstPlayerFleet);
+                destroyerCount--;
             }
+
+            while (cruiserCount > 0)
+            {
+                firstPlayerFleet = generateShipsPlayer("Cruiser", 2, firstPlayerFleet);
+                cruiserCount--;
+            }
+
+            while (carrierCount > 0)
+            {
+                firstPlayerFleet = generateShipsPlayer("Carrier", 4, firstPlayerFleet);
+                carrierCount--;
+            }
+
+            while (battleshipCount > 0)
+            {
+                firstPlayerFleet = generateShipsPlayer("Battleship", 3, firstPlayerFleet);
+                battleshipCount--;
+            }
+
+            // Do something with the firstPlayerFleet
         }
 
-
-        public void genereteaFleetOfShipsFirstPlayer(List<string> list) {
-        
-    
-        }
 
         public void genereteaFleetOfShipsSecondPlayer(List<string> list) {
 
         }
+
 
         // --виводимо короблі в консоль
         public void printPlayersBoards()

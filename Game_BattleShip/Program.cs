@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Xml.Linq;
 using Base;
 using BaseCoord;
@@ -21,7 +22,8 @@ namespace Game_BattleShip
                 "The Magdalen",
             };
 
-            engine.genereteaFleetOfShipsFirstPlayer(list);     
+            engine.genereteaFleetOfShipsFirstPlayer(list);
+
             engine.genereteaFleetOfShipsSecondPlayer(list);
 
             engine.printPlayersBoards();
